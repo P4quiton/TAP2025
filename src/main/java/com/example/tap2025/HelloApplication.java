@@ -1,10 +1,8 @@
 package com.example.tap2025;
 
+import com.example.tap2025.vistas.Calculadora;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -23,15 +21,19 @@ public class HelloApplication extends Application {
 
     void CrearUI(){
         mitCalculadora=new MenuItem("Calculadora");
+        mitCalculadora.setOnAction(actionEvent -> new Calculadora());
         menCompentencia1=new Menu("Competencia 1");
         //Agregar al menu competencia 1 la mitCalculadora
         menCompentencia1.getItems().addAll(mitCalculadora);
         mnbPrincipal=new MenuBar();
         mnbPrincipal.getMenus().addAll(menCompentencia1);
+        //Instansear el vBox para que no suelte un nullPointerExcep
+        //por que ahi va el mnbPrincipal
+        vBox=new VBox(mnbPrincipal);
     }
     @Override
     public void start(Stage stage) throws IOException {
-        vBox=new VBox();
+        CrearUI();
         stage.setTitle("Hola mundo de eventos");
         //Se agrega un setScene de forma anonima (objeto anonimo)
         stage.setScene(new Scene(vBox));
@@ -68,4 +70,5 @@ Este metodo tiene varias formas, si vamos a maximizar la ventana:
 stage.setScene(new Scene(vBox));
 sino
 stage.setScene(new Scene(vBox,200,200));
+Objetos observables: Son reactivos, recuperamos los elementos y luego cargamos
 */

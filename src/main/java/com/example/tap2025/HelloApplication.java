@@ -71,4 +71,15 @@ stage.setScene(new Scene(vBox));
 sino
 stage.setScene(new Scene(vBox,200,200));
 Objetos observables: Son reactivos, recuperamos los elementos y luego cargamos
+.setText reemplaza el valor de la caja de texto
+.appendText lo va adjuntando a la caja de texto
+foco es donde estaria el cursor seleccionado
+De la clase calculadora: txtSalida.setPromptText("Teclea tu operacion");
+Terminar esta calculadora funcionalmente
+
+En hojas de cascada se trabaja con selectores
+son instrucciones
+selectores de clase les da un comportamiento visual a todos los elementos de la clase
+selectores de identificador solo a uno puntualmente
+en resources se meten los estilos
 */

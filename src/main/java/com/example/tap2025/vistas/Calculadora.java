@@ -18,7 +18,7 @@ public class Calculadora extends Stage {
     //Matriz de botones
     private Button[][] maBtnTeclado;
     //Reacomodar los botones de la calculadora
-    private String[] strTeclas={"7","8","9","4","5","6","1","2","3","+","=","0",".","-","*","/"};
+    private String[] strTeclas={"7","8","9","x","4","5","6","/","1","2","3","+",".","0","=","-"};
 
     public void CrearUI(){
         //Para instansear primero el gdpTeclado
@@ -43,11 +43,18 @@ public class Calculadora extends Stage {
         for(int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++) {
                 maBtnTeclado[i][j]=new Button(strTeclas[pos]);
+                int finalPos=pos;
+                maBtnTeclado[i][j].setOnAction(actionEvent -> EventoTeclado(strTeclas[finalPos]));
                 maBtnTeclado[i][j].setPrefSize(50,50);
                 gdpTeclado.add(maBtnTeclado[i][j],j,i);
                 pos++;
             }
         }
+    }
+
+    private void EventoTeclado(String strTecla) {
+        //Probar poner un if strTecla para hacer funcional la calculadora
+        txtSalida.appendText(strTecla);
     }
 
     public Calculadora(){

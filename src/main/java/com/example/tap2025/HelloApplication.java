@@ -30,13 +30,18 @@ public class HelloApplication extends Application {
         //Instansear el vBox para que no suelte un nullPointerExcep
         //por que ahi va el mnbPrincipal
         vBox=new VBox(mnbPrincipal);
+        //instanceamos ahora la escena para agregar un fondo
+        escena=new Scene(vBox);
+        escena.getStylesheets().add(getClass().getResource("/styles/main.css").toString());
     }
     @Override
     public void start(Stage stage) throws IOException {
         CrearUI();
         stage.setTitle("Hola mundo de eventos");
-        //Se agrega un setScene de forma anonima (objeto anonimo)
-        stage.setScene(new Scene(vBox));
+        /*Se agrega un setScene de forma anonima (objeto anonimo)
+        stage.setScene(new Scene(vBox));*/
+        //Ahora en ves de usar un objero anonimo ya referenciamos la escena
+        stage.setScene(escena);
         stage.show();
         stage.setMaximized(true);
     }

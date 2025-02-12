@@ -1,0 +1,23 @@
+.button{
+    -fx-background-color: #3d3d3d;
+    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    /*Este padding tambien puede servir para redimensionar sin necesidad de usar el prefSize
+    -fx-padding:30;*/
+}
+
+.button:hover{
+    -fx-background-color: #4a7cc9;
+}
+
+#fontButton:hover{
+    -fx-background-color: #4a7cc9;
+}
+
+#fontButton{
+    -fx-font: bold italic 12pt "Arial";
+    -fx-background-color: #1f2e34;
+    -fx-text-fill: #FF0000;
+}

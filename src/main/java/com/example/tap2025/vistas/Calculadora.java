@@ -26,12 +26,12 @@ public class Calculadora extends Stage {
         txtSalida=new TextField("0");
         txtSalida.setEditable(false);
         txtSalida.setAlignment(Pos.BASELINE_RIGHT);
-
         vBox=new VBox(txtSalida,gdpTeclado);
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
         escena=new Scene(vBox,200,200);
-
+        //Ya estamos apuntando a la carpeta resources
+        escena.getStylesheets().add(getClass().getResource("/styles/calcu.css").toString());
     }
 
     public void crearTeclado(){
@@ -43,6 +43,12 @@ public class Calculadora extends Stage {
         for(int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++) {
                 maBtnTeclado[i][j]=new Button(strTeclas[pos]);
+                if(strTeclas[pos].equals("x")){
+                    maBtnTeclado[i][j].setId("fontButton");
+                    /*Esto es especifico, solo sale en esta parte del programa y al ser el ultimo cambio
+                    es el cambio final que se muestra*/
+                    //maBtnTeclado[i][j].setStyle("-fx-background-color: rgba(31,107,45,0.72)");
+                }
                 int finalPos=pos;
                 maBtnTeclado[i][j].setOnAction(actionEvent -> EventoTeclado(strTeclas[finalPos]));
                 maBtnTeclado[i][j].setPrefSize(50,50);

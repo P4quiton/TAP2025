@@ -1,0 +1,3 @@
+.root{/*se hace referencia a la escena*/
+    -fx-background-image: url("../images/haloProg.jpg");
+}

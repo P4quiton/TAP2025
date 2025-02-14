@@ -1,6 +1,7 @@
 package com.example.tap2025;
 
 import com.example.tap2025.vistas.Calculadora;
+import com.example.tap2025.vistas.VentasRestaurante;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -16,15 +17,17 @@ public class HelloApplication extends Application {
     private VBox vBox;
     private MenuBar mnbPrincipal;
     private Menu menCompentencia1, manCompentencia2;
-    private MenuItem mitCalculadora;
+    private MenuItem mitCalculadora, mitRestaurante;
     private Scene escena;
 
     void CrearUI(){
         mitCalculadora=new MenuItem("Calculadora");
         mitCalculadora.setOnAction(actionEvent -> new Calculadora());
+        mitRestaurante=new MenuItem("Restaurante");
+        mitRestaurante.setOnAction(actionEvent -> new VentasRestaurante());
         menCompentencia1=new Menu("Competencia 1");
         //Agregar al menu competencia 1 la mitCalculadora
-        menCompentencia1.getItems().addAll(mitCalculadora);
+        menCompentencia1.getItems().addAll(mitCalculadora,mitRestaurante);
         mnbPrincipal=new MenuBar();
         mnbPrincipal.getMenus().addAll(menCompentencia1);
         //Instansear el vBox para que no suelte un nullPointerExcep

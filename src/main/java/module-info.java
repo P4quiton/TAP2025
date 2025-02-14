@@ -4,6 +4,7 @@ module com.example.tap2025 {
 
 
     opens com.example.tap2025 to javafx.fxml;
+    requires org.kordamp.bootstrapfx.core;
     exports com.example.tap2025;
     exports com.example.tap2025.vistas;
     opens com.example.tap2025.vistas to javafx.fxml;

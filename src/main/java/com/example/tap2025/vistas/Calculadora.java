@@ -74,6 +74,9 @@ public class Calculadora extends Stage {
                     entradaActual+=strTecla;
                     txtSalida.setText(entradaActual);
                 }
+                else{
+                    txtSalida.setText("Solo un punto decimal");
+                }
                 break;
             default:
                 entradaActual+=strTecla;
@@ -94,6 +97,12 @@ public class Calculadora extends Stage {
         double resultado=0,segundoNum=0;
         if(!entradaActual.isEmpty()&&!ultimOperador.isEmpty()){
             segundoNum=Double.parseDouble(entradaActual);
+            if(ultimOperador.equals("/")&&segundoNum==0){
+                txtSalida.setText("No se puede dividir entre cero");
+                entradaActual="";
+                ultimOperador="";
+                return;
+            }
             switch (ultimOperador){
                 case "+":
                     resultado=ultimoNum+segundoNum;
@@ -105,7 +114,8 @@ public class Calculadora extends Stage {
                     resultado=ultimoNum*segundoNum;
                     break;
                 case "/":
-                    resultado=(segundoNum!=0)?ultimoNum/segundoNum:0;
+                    resultado=ultimoNum/segundoNum;
+                    break;
             }
             txtSalida.setText(String.valueOf(resultado));
             entradaActual="";

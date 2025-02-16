@@ -19,11 +19,14 @@ public class Calculadora extends Stage {
     private Button[][] maBtnTeclado;
     //Reacomodar los botones de la calculadora
     private String[] strTeclas={"7","8","9","x","4","5","6","/","1","2","3","+",".","0","=","-"};
+    private String entradaActual="";
+    private double ultimoNum=0;
+    private String ultimOperador="";
 
     public void CrearUI(){
         //Para instansear primero el gdpTeclado
         crearTeclado();
-        txtSalida=new TextField("0");
+        txtSalida=new TextField("");
         txtSalida.setEditable(false);
         txtSalida.setAlignment(Pos.BASELINE_RIGHT);
         vBox=new VBox(txtSalida,gdpTeclado);
@@ -59,8 +62,55 @@ public class Calculadora extends Stage {
     }
 
     private void EventoTeclado(String strTecla) {
-        //Probar poner un if strTecla para hacer funcional la calculadora
-        txtSalida.appendText(strTecla);
+        switch(strTecla){
+            case "=":
+                calcularResultado();
+                break;
+            case "+": case "-": case"x": case "/":
+                manejadorOperadores(strTecla);
+                break;
+            case ".":
+                if(!entradaActual.contains(".")){
+                    entradaActual+=strTecla;
+                    txtSalida.setText(entradaActual);
+                }
+                break;
+            default:
+                entradaActual+=strTecla;
+                txtSalida.setText(entradaActual);
+        }
+    }
+
+    private void manejadorOperadores(String operador) {
+        if(!entradaActual.isEmpty()){
+            ultimoNum=Double.parseDouble(entradaActual);
+            //Pa limpiar la entrada y que se pueda poner otro num
+            entradaActual="";
+            ultimOperador=operador;
+        }
+    }
+
+    private void calcularResultado() {
+        double resultado=0,segundoNum=0;
+        if(!entradaActual.isEmpty()&&!ultimOperador.isEmpty()){
+            segundoNum=Double.parseDouble(entradaActual);
+            switch (ultimOperador){
+                case "+":
+                    resultado=ultimoNum+segundoNum;
+                    break;
+                case "-":
+                    resultado=ultimoNum-segundoNum;
+                    break;
+                case "x":
+                    resultado=ultimoNum*segundoNum;
+                    break;
+                case "/":
+                    resultado=(segundoNum!=0)?ultimoNum/segundoNum:0;
+            }
+            txtSalida.setText(String.valueOf(resultado));
+            entradaActual="";
+            ultimOperador="";
+        }
     }
 
     public Calculadora(){

@@ -17,6 +17,8 @@ public class Calculadora extends Stage {
     private GridPane gdpTeclado;
     //Matriz de botones
     private Button[][] maBtnTeclado;
+    //Boton para borrar C
+    private Button btnBorrar;
     //Reacomodar los botones de la calculadora
     private String[] strTeclas={"7","8","9","x","4","5","6","/","1","2","3","+",".","0","=","-"};
     private String entradaActual="";
@@ -29,12 +31,22 @@ public class Calculadora extends Stage {
         txtSalida=new TextField("");
         txtSalida.setEditable(false);
         txtSalida.setAlignment(Pos.BASELINE_RIGHT);
-        vBox=new VBox(txtSalida,gdpTeclado);
+        //Instaciar btnBorrar
+        btnBorrar=new Button("CE");
+        btnBorrar.setPrefSize(200,50);
+        btnBorrar.setOnAction(actionEvent -> borrarEntrada());
+        //Agregar el bnBorrar al vBox
+        vBox=new VBox(txtSalida,gdpTeclado,btnBorrar);
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
-        escena=new Scene(vBox,200,200);
+        escena=new Scene(vBox,200,250);
         //Ya estamos apuntando a la carpeta resources
         escena.getStylesheets().add(getClass().getResource("/styles/calcu.css").toString());
+    }
+
+    private void borrarEntrada() {
+        entradaActual="";
+        txtSalida.setText("");
     }
 
     public void crearTeclado(){

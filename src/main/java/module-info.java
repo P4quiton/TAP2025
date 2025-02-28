@@ -10,4 +10,5 @@ module com.example.tap2025 {
     opens com.example.tap2025.vistas to javafx.fxml;
     requires mysql.connector.j;
     requires java.sql;
+    requires java.desktop;
 }

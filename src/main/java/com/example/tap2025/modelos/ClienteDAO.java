@@ -1,5 +1,11 @@
 package com.example.tap2025.modelos;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class ClienteDAO {
     private int idCte;
     private String nomCte;
@@ -48,7 +54,27 @@ public class ClienteDAO {
     public void DELETE(){
 
     }
-    public void SELECT(){
-
+    public ObservableList<ClienteDAO> SELECT(){
+        String query = "SELECT * FROM cliente";
+        ObservableList<ClienteDAO> listaC = FXCollections.observableArrayList();
+        ClienteDAO objC;
+        try {
+            Statement stmt = Conexion.connection.createStatement();
+            ResultSet res = stmt.executeQuery(query);
+            while(res.next()){
+                objC = new ClienteDAO();
+                objC.setIdCte(res.getInt("idCte"));
+                objC.setNomCte(res.getString("nomCte"));
+                objC.setDireccion(res.getString("direccion"));
+                objC.setTelCte(res.getString("telCte"));
+                objC.setEmailCte(res.getString("emailCte"));
+                listaC.add(objC);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return listaC;
     }
 }
+//Breakpoint se ejecuta el codigo y luego podemos depurar usando el debug
+//En este ejemplo nos muestra lo que tiene el listaC antes de hacer el return

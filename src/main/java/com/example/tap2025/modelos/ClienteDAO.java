@@ -47,12 +47,32 @@ public class ClienteDAO {
     public void INSERT(){
         String query="INSERT INTO cliente(nomCte,direccion,emailCte,telCte) " +
                 "values('"+nomCte+"','"+direccion+"','"+emailCte+"','"+telCte+"')";
+        try{
+            Statement stmt = Conexion.connection.createStatement();
+            stmt.executeUpdate(query);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     public void UPDATE(){
-
+        String query = "UPDATE clientes SET nomCte = '"+nomCte+"'," +
+                "telCte = '"+telCte+"',direccion = '"+direccion+"'," +
+                "emailCte = '"+emailCte+"' WHERE idCte = "+idCte;
+        try {
+            Statement stmt = Conexion.connection.createStatement();
+            stmt.executeUpdate(query);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     public void DELETE(){
-
+        String query = "DELETE FROM clientes WHERE idCte = "+idCte;
+        try{
+            Statement stmt = Conexion.connection.createStatement();
+            stmt.executeUpdate(query);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     public ObservableList<ClienteDAO> SELECT(){
         String query = "SELECT * FROM cliente";

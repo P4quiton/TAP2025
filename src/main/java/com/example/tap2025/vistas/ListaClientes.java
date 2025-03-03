@@ -27,8 +27,8 @@ public class ListaClientes extends Stage {
     }
 
     private void CrearUI(){
-        tlbMenu=new ToolBar();
         btnAgregar=new Button();
+        btnAgregar.setOnAction(actionEvent -> new Cliente(tbvClientes));
         ImageView imv=new ImageView(getClass().getResource("/images/person_add_icon.jpg").toString());
         imv.setFitWidth(20);
         imv.setFitHeight(20);

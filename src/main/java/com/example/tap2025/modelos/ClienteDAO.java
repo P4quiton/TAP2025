@@ -55,7 +55,7 @@ public class ClienteDAO {
         }
     }
     public void UPDATE(){
-        String query = "UPDATE clientes SET nomCte = '"+nomCte+"'," +
+        String query = "UPDATE cliente SET nomCte = '"+nomCte+"'," +
                 "telCte = '"+telCte+"',direccion = '"+direccion+"'," +
                 "emailCte = '"+emailCte+"' WHERE idCte = "+idCte;
         try {
@@ -66,7 +66,7 @@ public class ClienteDAO {
         }
     }
     public void DELETE(){
-        String query = "DELETE FROM clientes WHERE idCte = "+idCte;
+        String query = "DELETE FROM cliente WHERE idCte = "+idCte;
         try{
             Statement stmt = Conexion.connection.createStatement();
             stmt.executeUpdate(query);

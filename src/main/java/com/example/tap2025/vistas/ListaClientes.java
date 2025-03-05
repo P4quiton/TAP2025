@@ -1,15 +1,14 @@
 package com.example.tap2025.vistas;
 
+import com.example.tap2025.componentes.ButtonCell;
 import com.example.tap2025.modelos.ClienteDAO;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 public class ListaClientes extends Stage {
@@ -57,8 +56,25 @@ public class ListaClientes extends Stage {
 
         TableColumn<ClienteDAO,String>tbcEmailCte=new TableColumn<>("Email");
         tbcEmailCte.setCellValueFactory(new PropertyValueFactory<>("emailCte"));
+        //Para el ButtonCell
+        TableColumn<ClienteDAO,String>tbcEditar=new TableColumn<>("Editar");
+        tbcEditar.setCellFactory(new Callback<TableColumn<ClienteDAO, String>, TableCell<ClienteDAO, String>>() {
+            @Override
+            public TableCell<ClienteDAO, String> call(TableColumn<ClienteDAO, String> clienteDAOStringTableColumn) {
+                return new ButtonCell("Editar");
+            }
+        });
+
+        TableColumn<ClienteDAO,String>tbcEliminar=new TableColumn<>("Eliminar");
+        tbcEliminar.setCellFactory(new Callback<TableColumn<ClienteDAO, String>, TableCell<ClienteDAO, String>>() {
+            @Override
+            public TableCell<ClienteDAO, String> call(TableColumn<ClienteDAO, String> clienteDAOStringTableColumn) {
+                return new ButtonCell("Eliminar");
+            }
+        });
+
         //Metemos las columnas al table View
-        tbvClientes.getColumns().addAll(tbcNomCte,tbcDireccionCte,tbcTelefonoCte,tbcEmailCte);
+        tbvClientes.getColumns().addAll(tbcNomCte,tbcDireccionCte,tbcTelefonoCte,tbcEmailCte,tbcEditar,tbcEliminar);
         //Para mostrar los datos, entonces necesitamos el metodo select
         tbvClientes.setItems(objC.SELECT());
     }

@@ -3,9 +3,11 @@ package com.example.tap2025;
 import com.example.tap2025.modelos.Conexion;
 import com.example.tap2025.vistas.Calculadora;
 import com.example.tap2025.vistas.ListaClientes;
+import com.example.tap2025.vistas.Rompecabezas;
 import com.example.tap2025.vistas.VentasRestaurante;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -19,7 +21,7 @@ public class HelloApplication extends Application {
     private VBox vBox;
     private MenuBar mnbPrincipal;
     private Menu menCompentencia1, manCompentencia2;
-    private MenuItem mitCalculadora, mitRestaurante;
+    private MenuItem mitCalculadora, mitRestaurante, mitRompecabezas;
     private Scene escena;
 
     void CrearUI(){
@@ -28,9 +30,21 @@ public class HelloApplication extends Application {
         mitRestaurante=new MenuItem("Restaurante");
         mitRestaurante.setOnAction(actionEvent -> new VentasRestaurante());
         mitRestaurante.setOnAction(actionEvent -> new ListaClientes());
+        mitRompecabezas=new MenuItem("Rompecabezas");
+        mitRompecabezas.setOnAction(actionEvent -> {
+            // Diálogo para seleccionar el tamaño del rompecabezas
+            ChoiceDialog<Integer> dialog = new ChoiceDialog<>(3, 3, 4, 5);
+            dialog.setTitle("Seleccionar Tamaño");
+            dialog.setHeaderText("Selecciona el tamaño del rompecabezas");
+            dialog.setContentText("Tamaño:");
+
+            dialog.showAndWait().ifPresent(tamano -> {
+                new Rompecabezas(tamano); // Abre el rompecabezas con el tamaño seleccionado
+            });
+        });
         menCompentencia1=new Menu("Competencia 1");
         //Agregar al menu competencia 1 la mitCalculadora
-        menCompentencia1.getItems().addAll(mitCalculadora,mitRestaurante);
+        menCompentencia1.getItems().addAll(mitCalculadora,mitRestaurante,mitRompecabezas);
         mnbPrincipal=new MenuBar();
         mnbPrincipal.getMenus().addAll(menCompentencia1);
         //Instansear el vBox para que no suelte un nullPointerExcep

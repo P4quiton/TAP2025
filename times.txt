@@ -1,0 +1,5 @@
+Tiempo: 25s
+Tiempo: 12s
+Tiempo: 18s
+Tiempo: 47s
+Tiempo: 153s

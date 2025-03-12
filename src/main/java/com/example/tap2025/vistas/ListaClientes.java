@@ -26,14 +26,14 @@ public class ListaClientes extends Stage {
     }
 
     private void CrearUI(){
+        tbvClientes=new TableView<>();
         btnAgregar=new Button();
-        btnAgregar.setOnAction(actionEvent -> new Cliente(tbvClientes));
+        btnAgregar.setOnAction(actionEvent -> new Cliente(tbvClientes, null));
         ImageView imv=new ImageView(getClass().getResource("/images/person_add_icon.jpg").toString());
         imv.setFitWidth(20);
         imv.setFitHeight(20);
         btnAgregar.setGraphic(imv);
         tlbMenu=new ToolBar(btnAgregar);
-        tbvClientes=new TableView<>();
         //Para ir creando las columnas
         CreateTable();
         vBox=new VBox(tlbMenu,tbvClientes);
@@ -60,7 +60,7 @@ public class ListaClientes extends Stage {
         TableColumn<ClienteDAO,String>tbcEditar=new TableColumn<>("Editar");
         tbcEditar.setCellFactory(new Callback<TableColumn<ClienteDAO, String>, TableCell<ClienteDAO, String>>() {
             @Override
-            public TableCell<ClienteDAO, String> call(TableColumn<ClienteDAO, String> clienteDAOStringTableColumn) {
+            public TableCell<ClienteDAO, String> call(TableColumn<ClienteDAO, String> param) {
                 return new ButtonCell("Editar");
             }
         });
@@ -68,7 +68,7 @@ public class ListaClientes extends Stage {
         TableColumn<ClienteDAO,String>tbcEliminar=new TableColumn<>("Eliminar");
         tbcEliminar.setCellFactory(new Callback<TableColumn<ClienteDAO, String>, TableCell<ClienteDAO, String>>() {
             @Override
-            public TableCell<ClienteDAO, String> call(TableColumn<ClienteDAO, String> clienteDAOStringTableColumn) {
+            public TableCell<ClienteDAO, String> call(TableColumn<ClienteDAO, String> param) {
                 return new ButtonCell("Eliminar");
             }
         });

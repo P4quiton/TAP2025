@@ -1,6 +1,7 @@
 package com.example.tap2025.componentes;
 
 import com.example.tap2025.modelos.ClienteDAO;
+import com.example.tap2025.vistas.Cliente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -15,15 +16,13 @@ public class ButtonCell extends TableCell<ClienteDAO,String> {
     private String strLabelBtn;
 
     public ButtonCell(String label){
-
         strLabelBtn=label;
         btnCelda=new Button(strLabelBtn);
         btnCelda.setOnAction(actionEvent -> {
             ClienteDAO objC=this.getTableView().getItems().get(getIndex());
             if(strLabelBtn.equals("Editar")){
-
-            }
-            else {
+                new Cliente(this.getTableView(),objC);
+            }else{
                 Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Mensaje del Sistema");
                 alert.setContentText("¿Deseas eliminar el registro seleccionado?");

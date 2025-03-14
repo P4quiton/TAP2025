@@ -3,6 +3,8 @@ package com.example.tap2025.vistas;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -15,32 +17,27 @@ public class Calculadora extends Stage {
     private TextField txtSalida;
     private VBox vBox;
     private GridPane gdpTeclado;
-    //Matriz de botones
     private Button[][] maBtnTeclado;
-    //Boton para borrar C
     private Button btnBorrar;
-    //Reacomodar los botones de la calculadora
     private String[] strTeclas={"7","8","9","x","4","5","6","/","1","2","3","+",".","0","=","-"};
     private String entradaActual="";
     private double ultimoNum=0;
     private String ultimOperador="";
 
     public void CrearUI(){
-        //Para instansear primero el gdpTeclado
         crearTeclado();
         txtSalida=new TextField("");
         txtSalida.setEditable(false);
         txtSalida.setAlignment(Pos.BASELINE_RIGHT);
-        //Instaciar btnBorrar
+
         btnBorrar=new Button("CE");
         btnBorrar.setPrefSize(200,50);
         btnBorrar.setOnAction(actionEvent -> borrarEntrada());
-        //Agregar el bnBorrar al vBox
+
         vBox=new VBox(txtSalida,gdpTeclado,btnBorrar);
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
         escena=new Scene(vBox,200,250);
-        //Ya estamos apuntando a la carpeta resources
         escena.getStylesheets().add(getClass().getResource("/styles/calcu.css").toString());
     }
 
@@ -60,9 +57,6 @@ public class Calculadora extends Stage {
                 maBtnTeclado[i][j]=new Button(strTeclas[pos]);
                 if(strTeclas[pos].equals("x")){
                     maBtnTeclado[i][j].setId("fontButton");
-                    /*Esto es especifico, solo sale en esta parte del programa y al ser el ultimo cambio
-                    es el cambio final que se muestra*/
-                    //maBtnTeclado[i][j].setStyle("-fx-background-color: rgba(31,107,45,0.72)");
                 }
                 int finalPos=pos;
                 maBtnTeclado[i][j].setOnAction(actionEvent -> EventoTeclado(strTeclas[finalPos]));
@@ -82,12 +76,13 @@ public class Calculadora extends Stage {
                 manejadorOperadores(strTecla);
                 break;
             case ".":
-                if(!entradaActual.contains(".")){
-                    entradaActual+=strTecla;
-                    txtSalida.setText(entradaActual);
-                }
-                else{
-                    txtSalida.setText("Solo un punto decimal");
+                if (!entradaActual.isEmpty() && Character.isDigit(entradaActual.charAt(entradaActual.length() - 1))) {
+                    if (!entradaActual.contains(".")) {
+                        entradaActual += strTecla;
+                        txtSalida.setText(entradaActual);
+                    }
+                } else {
+                    mostrarAlerta("Error", "Punto en posición inválida");
                 }
                 break;
             default:
@@ -97,11 +92,13 @@ public class Calculadora extends Stage {
     }
 
     private void manejadorOperadores(String operador) {
-        if(!entradaActual.isEmpty()){
+        if(!entradaActual.isEmpty() && !entradaActual.equals(".")) {
             ultimoNum=Double.parseDouble(entradaActual);
-            //Pa limpiar la entrada y que se pueda poner otro num
             entradaActual="";
             ultimOperador=operador;
+        } else {
+            mostrarAlerta("Error", "Entrada inválida");
+            entradaActual = "";
         }
     }
 
@@ -110,7 +107,7 @@ public class Calculadora extends Stage {
         if(!entradaActual.isEmpty()&&!ultimOperador.isEmpty()){
             segundoNum=Double.parseDouble(entradaActual);
             if(ultimOperador.equals("/")&&segundoNum==0){
-                txtSalida.setText("No se puede dividir entre cero");
+                mostrarAlerta("Error", "No se puede dividir entre cero");
                 entradaActual="";
                 ultimOperador="";
                 return;
@@ -133,6 +130,14 @@ public class Calculadora extends Stage {
             entradaActual="";
             ultimOperador="";
         }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 
     public Calculadora(){

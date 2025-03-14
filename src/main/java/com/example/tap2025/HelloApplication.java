@@ -1,10 +1,8 @@
 package com.example.tap2025;
 
+import com.example.tap2025.componentes.Hilo;
 import com.example.tap2025.modelos.Conexion;
-import com.example.tap2025.vistas.Calculadora;
-import com.example.tap2025.vistas.ListaClientes;
-import com.example.tap2025.vistas.Rompecabezas;
-import com.example.tap2025.vistas.VentasRestaurante;
+import com.example.tap2025.vistas.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceDialog;
@@ -20,8 +18,8 @@ public class HelloApplication extends Application {
 
     private VBox vBox;
     private MenuBar mnbPrincipal;
-    private Menu menCompentencia1, manCompentencia2;
-    private MenuItem mitCalculadora, mitRestaurante, mitRompecabezas;
+    private Menu menCompentencia1, menCompentencia2;
+    private MenuItem mitCalculadora, mitRestaurante, mitRompecabezas,mitHilos;
     private Scene escena;
 
     void CrearUI(){
@@ -45,8 +43,15 @@ public class HelloApplication extends Application {
         menCompentencia1=new Menu("Competencia 1");
         //Agregar al menu competencia 1 la mitCalculadora
         menCompentencia1.getItems().addAll(mitCalculadora,mitRestaurante,mitRompecabezas);
+
+        //Menu de la competencia 2
+        mitHilos=new MenuItem("Celayork");
+        mitHilos.setOnAction(actionEvent -> new Celayork());
+        menCompentencia2=new Menu("Competencia 2");
+        menCompentencia2.getItems().add(mitHilos);
+
         mnbPrincipal=new MenuBar();
-        mnbPrincipal.getMenus().addAll(menCompentencia1);
+        mnbPrincipal.getMenus().addAll(menCompentencia1,menCompentencia2);
         //Instansear el vBox para que no suelte un nullPointerExcep
         //por que ahi va el mnbPrincipal
         vBox=new VBox(mnbPrincipal);
@@ -56,6 +61,13 @@ public class HelloApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
+/*
+        new Hilo("Ruta Pinos").start();
+        new Hilo("Ruta Laureles").start();
+        new Hilo("Ruta San Juan de la Vega").start();
+        new Hilo("Ruta Monte Blanco").start();
+        new Hilo("Ruta Teneria").start();
+*/
         Conexion.createConnection();
         CrearUI();
         stage.setTitle("Hola mundo de eventos");

@@ -1,5 +1,4 @@
 package com.example.tap2025.vistas;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -72,8 +71,18 @@ public class Calculadora extends Stage {
             case "=":
                 calcularResultado();
                 break;
-            case "+": case "-": case"x": case "/":
+            case "+": case "x": case "/":
                 manejadorOperadores(strTecla);
+                break;
+            case "-":
+                if (entradaActual.isEmpty()) {
+                    entradaActual = "-";
+                    txtSalida.setText(entradaActual);
+                } else if (!entradaActual.equals("-")) {
+                    manejadorOperadores(strTecla);
+                } else {
+                    mostrarAlerta("Error", "Ya has introducido el signo negativo.");
+                }
                 break;
             case ".":
                 if (!entradaActual.isEmpty() && Character.isDigit(entradaActual.charAt(entradaActual.length() - 1))) {
@@ -82,7 +91,8 @@ public class Calculadora extends Stage {
                         txtSalida.setText(entradaActual);
                     }
                 } else {
-                    mostrarAlerta("Error", "Punto en posición inválida");
+                    entradaActual="0.";
+                    txtSalida.setText(entradaActual);
                 }
                 break;
             default:
